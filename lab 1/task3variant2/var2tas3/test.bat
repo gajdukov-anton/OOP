@@ -1,29 +1,29 @@
 set PROGRAM="%~1"
 
-REM запуск программы без параметров
+REM runnig program without parametrs
 %PROGRAM% 
 IF ERRORLEVEL 1 GOTO err
 
-REM запуск программы с несуществующим файлом
-%PROGRAM% notANumber.txt
+REM running program with nonexistent file
+%PROGRAM% tests\notANumber.txt
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запууск программы со стандартной матрицей №1 (и проверяет результат)
-%PROGRAM% matrix.txt > output.txt
+REM running program with standart matrix #1
+%PROGRAM% tests\matrix.txt > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt result1.txt
-IF ERRORLEVEL 1 GOTO err
-
-REM запууск программы со стандартной матрицей №2 (и проверяет результат)
-%PROGRAM% matrix2.txt > output.txt
-IF ERRORLEVEL 1 GOTO err
-FC /B output.txt result2.txt
+FC /B tests\output.txt tests\result1.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM запууск программы с матрицей, имеющий нулевой определитель (и проверяет результат)
-%PROGRAM% matrix3.txt > output.txt
+REM running program with standart matrix #2
+%PROGRAM% tests\matrix2.txt > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt result3.txt
+FC /B tests\output.txt tests\result2.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM running program with matrix with a null determinant
+%PROGRAM% tests\matrix3.txt > tests\output.txt
+IF ERRORLEVEL 1 GOTO err
+FC /B tests\output.txt tests\result3.txt
 IF ERRORLEVEL 1 GOTO err
 
 ECHO Program testing succeeded :-)
