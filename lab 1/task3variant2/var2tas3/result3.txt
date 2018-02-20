@@ -1,0 +1,1 @@
+Determinat is less then zero. Inverse Matrix is not available. 
