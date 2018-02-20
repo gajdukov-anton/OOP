@@ -1,69 +1,69 @@
 set PROGRAM="%~1"
 
-REM запуск программы без параметров
+REM running the program without parameters
 %PROGRAM%
 IF ERRORLEVEL 1 GOTO err
 
-REM запуск программы с одним нечисловым параметром
+REM running the program with non-numeric parameter
 %PROGRAM% notANumber
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск прогрраммы с пустой строкой в качестве одного из параметров
+REM running the program with empty string
 %PROGRAM% ""
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск прогрраммы с отрицательным числом в качестве одного из параметров
+REM running the program with minus parameter
 %PROGRAM% -10
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск прогрраммы с числом превышающим значение 255 в качестве одного из параметров
+REM running the program with number exceeding a value of 255
 %PROGRAM% 500
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск прогрраммы с числом превышающим значение int в качестве одного из параметров
+REM running the program with number exceeding a value
 %PROGRAM% 999999999999
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 6 > output.txt
+REM running the program with number (and checking the result)
+%PROGRAM% 6 > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 6-96.txt
-IF ERRORLEVEL 1 GOTO err
-
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 140 > output.txt
-IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 140-49.txt
+FC /B tests\output.txt tests\6-96.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 16 > output.txt
+REM running the program with number (and checking the result)
+%PROGRAM% 140 > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 16-8.txt
-IF ERRORLEVEL 1 GOTO err
-
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 255 > output.txt
-IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 255-255.txt
+FC /B tests\output.txt tests\140-49.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 0 > output.txt
+REM running the program with number (and checking the result)
+%PROGRAM% 16 > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 0-0.txt
-IF ERRORLEVEL 1 GOTO err
-
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 254 > output.txt
-IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 254-127.txt
+FC /B tests\output.txt tests\16-8.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM запуск программы с одним числовым параметром (и проверяет результат)
-%PROGRAM% 128 > output.txt
+REM running the program with number (and checking the result)
+%PROGRAM% 255 > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
-FC /B output.txt 128-1.txt
+FC /B tests\output.txt tests\255-255.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM running the program with number (and checking the result)
+%PROGRAM% 0 > tests\output.txt
+IF ERRORLEVEL 1 GOTO err
+FC /B tests\output.txt tests\0-0.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM running the program with number (and checking the result)
+%PROGRAM% 254 > tests\output.txt
+IF ERRORLEVEL 1 GOTO err
+FC /B tests\output.txt tests\254-127.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM running the program with number (and checking the result)
+%PROGRAM% 128 > tests\output.txt
+IF ERRORLEVEL 1 GOTO err
+FC /B tests\output.txt tests\128-1.txt
 IF ERRORLEVEL 1 GOTO err
 
 
