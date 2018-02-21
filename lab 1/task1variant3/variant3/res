@@ -1,0 +1,13 @@
+
+C:\Users\Антон\source\repos\OOP\lab 1\task1variant3\variant3>set PROGRAM="" 
+
+C:\Users\Антон\source\repos\OOP\lab 1\task1variant3\variant3>REM running program without parametrs 
+
+C:\Users\Антон\source\repos\OOP\lab 1\task1variant3\variant3>""
+
+C:\Users\Антон\source\repos\OOP\lab 1\task1variant3\variant3>IF ERRORLEVEL 1 GOTO err 
+
+C:\Users\Антон\source\repos\OOP\lab 1\task1variant3\variant3>ECHO Program testing failed :-( 
+Program testing failed :-(
+
+C:\Users\Антон\source\repos\OOP\lab 1\task1variant3\variant3>EXIT
