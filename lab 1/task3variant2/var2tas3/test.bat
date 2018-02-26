@@ -1,10 +1,12 @@
 set PROGRAM="%~1"
 
-REM runnig program without parametrs
+REM running program without parametrs
+ECHO Running program without parametrs
 %PROGRAM% 
 IF NOT ERRORLEVEL 1 GOTO err
 
 REM running program with nonexistent file
+ECHO Running program with nonexistent file
 %PROGRAM% tests\notANumber.txt
 IF NOT ERRORLEVEL 1 GOTO err
 
@@ -29,8 +31,8 @@ IF ERRORLEVEL 1 GOTO err
 FC /B tests\output.txt tests\result3.txt
 IF ERRORLEVEL 1 GOTO err
 
-REM running program with matrix with a matrix4
-ECHO Running program with matrix with a matrix4
+REM running program with standart matrix #4
+ECHO Running program program with standart matrix #4
 %PROGRAM% tests\matrix4.txt > tests\output.txt
 IF ERRORLEVEL 1 GOTO err
 FC /B tests\output.txt tests\result4.txt
