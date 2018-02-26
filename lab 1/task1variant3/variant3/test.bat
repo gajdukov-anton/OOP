@@ -5,8 +5,15 @@ ECHO Running program without parametrs
 %PROGRAM%
 IF NOT ERRORLEVEL 1 GOTO err
 
-REM running program with a one word
-ECHO Running program with a one word
+REM running program with empty string
+ECHO Running program with empty string
+%PROGRAM% tests\input1.txt "" > tests\output.txt
+IF NOT ERRORLEVEL 1 GOTO err
+FC /B tests\output.txt tests\emptyString.txt
+IF ERRORLEVEL 1 GOTO err
+
+REM running program with a one word, which not in file
+ECHO Running program with a one word, which not in file
 %PROGRAM% tests\input1.txt Moscow > tests\output.txt
 IF NOT ERRORLEVEL 1 GOTO err
 FC /B tests\output.txt tests\0.txt
