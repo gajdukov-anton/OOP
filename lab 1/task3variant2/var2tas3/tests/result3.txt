@@ -1,1 +1,1 @@
-Determinat is less then zero. Inverse Matrix is not available. 
+Determinat is less then zero. It is impossible to find inverse matrix for this matrix. 
