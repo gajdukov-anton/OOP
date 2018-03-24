@@ -9,6 +9,7 @@ CTVSet::CTVSet()
 {
 	m_isActivated = false;
 	m_currentChannel = 1;
+	m_lastChannel = 1;
 	m_channels.reserve(99);
 }
 
@@ -45,8 +46,16 @@ int CTVSet::SelectChannel(int channelNumber)
 		return 0;
 	if (!(channelNumber >= 1 && channelNumber <= 99))
 		return 0;
-
+	m_lastChannel = m_currentChannel;
 	m_currentChannel = channelNumber;
+	return m_currentChannel;
+}
+
+int CTVSet::SelectLastChannel()
+{
+	if (!m_isActivated)
+		return 0;
+	m_currentChannel = m_lastChannel;
 	return m_currentChannel;
 }
 

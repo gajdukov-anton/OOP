@@ -15,11 +15,14 @@ public:
 
 	int SelectChannel(int channelNumber);
 
+	int SelectLastChannel();
+
 	std::string info() const;
 
 private:
 	bool m_isActivated;
 	int m_currentChannel;
+	int m_lastChannel;
 	std::vector<std::string> m_channels;
 };
 
