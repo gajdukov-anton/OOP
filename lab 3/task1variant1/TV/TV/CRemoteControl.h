@@ -9,7 +9,7 @@ class CRemoteControl
 {
 public:
 	CRemoteControl(CTVSet& tv);
-	bool HandleCommand(std::string& command);
+	bool HandleCommand(const std::string& command);
 	~CRemoteControl();
 
 private:

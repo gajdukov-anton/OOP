@@ -22,7 +22,7 @@ CRemoteControl::~CRemoteControl()
 {
 }
 
-bool CRemoteControl::HandleCommand(std::string& command)
+bool CRemoteControl::HandleCommand(const std::string& command)
 {
 	bool commandDone = false;
 	if (command == COMMAND_TURN_ON)
@@ -53,7 +53,10 @@ bool CRemoteControl::HandleCommand(std::string& command)
 			int number;
 			number = GetNumberOfChannel(command, 13);
 			if (number == 0)
+			{
 				cout << "Invalid number of channel" << endl;
+				return false;
+			}
 			else
 				cout << "Selected channel: " << m_tv.SelectChannel(number) << endl;
 		}
@@ -61,21 +64,35 @@ bool CRemoteControl::HandleCommand(std::string& command)
 	if (!commandDone)
 	{
 		cout << "Invalid command" << endl;
+		return false;
 	}
 	return true;
 }
 
 bool CRemoteControl::TurnOn()
 {
-	m_tv.TurnOn();
-	cout << "TV is turned on" << endl;
+	
+	if (m_tv.TurnOn())
+	{
+		cout << "TV is turned on" << endl;
+	}
+	else
+	{
+		cout << "TV has already turned on" << endl;
+	}
 	return true;
 }
 
 bool CRemoteControl::TurnOff()
 {
-	m_tv.TurnOff();
-	cout << "TV is turned off" << endl;
+	if (m_tv.TurnOff())
+	{
+		cout << "TV is turned off" << endl;
+	}
+	else
+	{
+		cout << "TV has already turned off" << endl;
+	}
 	return true;
 }
 
@@ -102,15 +119,16 @@ int CRemoteControl::GetNumberOfChannel(const std::string& strWithCommand, size_t
 	size_t amountOfElement = strWithCommand.size();
 	string strWithNumber = "";
 	int numberOfChannel;
-	for (size_t i = positionOfNumber + 1; i < amountOfElement - 1; i++)
+	for (size_t i = positionOfNumber + 1; i < amountOfElement; i++)
 	{
+		if (i == amountOfElement - 1 && strWithCommand[i] != '>')
+			return 0;
 		if (strWithCommand[i] != '>')
 			strWithNumber += strWithCommand[i];
-		else
-			break;
 	}
 	try
 	{
+		cout << strWithNumber << endl;
 		numberOfChannel = stoi(strWithNumber);
 	}
 	catch (const std::invalid_argument)
