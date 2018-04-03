@@ -17,7 +17,7 @@ private:
 	bool TurnOff();
 	bool Info();
 	bool SelectChannel(int channel);
-	bool SelectLastChannel();
+	bool SelectPreviousChannel();
 	int GetNumberOfChannel(const std::string& strWithCommand, size_t positionOfNumber);
 	bool CheckCommand(const std::string& command);
 

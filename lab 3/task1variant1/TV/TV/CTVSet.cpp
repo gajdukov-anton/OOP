@@ -51,7 +51,7 @@ int CTVSet::SelectChannel(int channelNumber)
 	return m_currentChannel;
 }
 
-int CTVSet::SelectLastChannel()
+int CTVSet::SelectPreviousChannel()
 {
 	if (!m_isActivated)
 		return 0;

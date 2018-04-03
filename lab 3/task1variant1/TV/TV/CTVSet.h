@@ -15,7 +15,7 @@ public:
 
 	int SelectChannel(int channelNumber);
 
-	int SelectLastChannel();
+	int SelectPreviousChannel();
 
 	std::string info() const;
 

@@ -42,7 +42,7 @@ bool CRemoteControl::HandleCommand(const std::string& command)
 	}
 	if (command == COMMAND_SELECT_LAST_CHANNEL)
 	{
-		SelectLastChannel();
+		SelectPreviousChannel();
 		commandDone = true;
 	}
 	if (!commandDone)
@@ -108,9 +108,9 @@ bool CRemoteControl::SelectChannel(int channel)
 	return true;
 }
 
-bool CRemoteControl::SelectLastChannel()
+bool CRemoteControl::SelectPreviousChannel()
 {
-	cout << "Selected last channel: " << m_tv.SelectLastChannel() << endl;
+	cout << "Selected last channel: " << m_tv.SelectPreviousChannel() << endl;
 	return true;
 }
 
@@ -126,9 +126,9 @@ int CRemoteControl::GetNumberOfChannel(const std::string& strWithCommand, size_t
 		if (strWithCommand[i] != '>')
 			strWithNumber += strWithCommand[i];
 	}
+
 	try
 	{
-		cout << strWithNumber << endl;
 		numberOfChannel = stoi(strWithNumber);
 	}
 	catch (const std::invalid_argument)
