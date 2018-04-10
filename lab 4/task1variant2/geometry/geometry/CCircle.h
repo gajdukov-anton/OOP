@@ -10,13 +10,13 @@ public:
 	CCircle(ÑPoint centre, double radius,
 		std::string outlineColor, std::string fillColor);
 	CCircle();
-	double GetArea() const;
-	double GetPerimeter() const;
-	ÑPoint GetCentre() const;
+	double GetArea() const override;
+	double GetPerimeter() const override;
+	ÑPoint GetCentre() const ;
 	double GetRadius() const;
-	std::string ToString() const;
-	std::string GetOutlineColor() const;
-	std::string GetFillColor() const;
+	std::string ToString() const override;
+	std::string GetOutlineColor() const override;
+	std::string GetFillColor() const override;
 	~CCircle();
 private:
 	void FillCircleParameters();

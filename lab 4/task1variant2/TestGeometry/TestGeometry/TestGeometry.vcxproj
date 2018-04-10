@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\geometry\geometry\CCircle.h" />
     <ClInclude Include="..\..\geometry\geometry\CLineSegment.h" />
+    <ClInclude Include="..\..\geometry\geometry\CRectangle.h" />
     <ClInclude Include="..\..\geometry\geometry\CTriangle.h" />
     <ClInclude Include="..\..\geometry\geometry\IShape.h" />
     <ClInclude Include="..\..\geometry\geometry\ISolidShape.h" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\geometry\geometry\CCircle.cpp" />
     <ClCompile Include="..\..\geometry\geometry\CLineSegment.cpp" />
+    <ClCompile Include="..\..\geometry\geometry\CRectangle.cpp" />
     <ClCompile Include="..\..\geometry\geometry\CTriangle.cpp" />
     <ClCompile Include="..\..\geometry\geometry\IShape.cpp" />
     <ClCompile Include="..\..\geometry\geometry\ISolidShape.cpp" />

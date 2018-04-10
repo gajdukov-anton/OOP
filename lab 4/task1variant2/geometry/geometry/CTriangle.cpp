@@ -8,9 +8,11 @@ CTriangle::CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3)
 {
 	FillLines();
 	FillLengthOfLines();
-	m_semiperimeter = (m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3) / 2;
 	m_fillColor = "black";
 	m_outlineColor = "black";
+	m_perimetr = m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3;
+	m_semiperimeter = (m_perimetr) / 2;
+	m_area = sqrt(m_semiperimeter * (m_semiperimeter - m_lengthOfLine1) * (m_semiperimeter - m_lengthOfLine2) * (m_semiperimeter - m_lengthOfLine3));
 }
 
 CTriangle::CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3,
@@ -19,7 +21,9 @@ CTriangle::CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3,
 {
 	FillLines();
 	FillLengthOfLines();
-	m_semiperimeter = (m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3) / 2;
+	m_perimetr = m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3;
+	m_semiperimeter = (m_perimetr) / 2;
+	m_area = sqrt(m_semiperimeter * (m_semiperimeter - m_lengthOfLine1) * (m_semiperimeter - m_lengthOfLine2) * (m_semiperimeter - m_lengthOfLine3));
 }
 
 void CTriangle::FillLines()
@@ -38,13 +42,12 @@ void CTriangle::FillLengthOfLines()
 
 double CTriangle::GetArea() const
 {
-	double result = sqrt(m_semiperimeter * (m_semiperimeter - m_lengthOfLine1) * (m_semiperimeter - m_lengthOfLine2) * (m_semiperimeter - m_lengthOfLine3));
-	return result;
+	return m_area;
 }
 
 double CTriangle::GetPerimeter() const
 {
-	return m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3;
+	return m_perimetr;
 }
 
 ÑPoint CTriangle::GetVertex1() const

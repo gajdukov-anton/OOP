@@ -10,11 +10,11 @@ public:
 	CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3,
 		std::string outlineColor, std::string fillColor);
 	~CTriangle();
-	double GetArea() const;
-	double GetPerimeter() const;
-	std::string ToString() const;
-	std::string GetOutlineColor() const;
-	std::string GetFillColor() const;
+	double GetArea() const override;
+	double GetPerimeter() const override;
+	std::string ToString() const override;
+	std::string GetOutlineColor() const override;
+	std::string GetFillColor() const override;
 	ÑPoint GetVertex1() const;
 	ÑPoint GetVertex2() const;
 	ÑPoint GetVertex3() const;
@@ -33,6 +33,7 @@ private:
 	double m_lengthOfLine1;
 	double m_lengthOfLine2;
 	double m_lengthOfLine3;
-
+	double m_area;
+	double m_perimetr;
 };
 
