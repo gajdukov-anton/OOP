@@ -1,17 +1,6 @@
 #include "stdafx.h"
 #include "CCircle.h"
 
-
-CCircle::CCircle()
-{
-	m_radius = 10.0;
-	m_outlineColor = "black";
-	m_fillColor = "black";
-	m_lengthOfCircle = 2 * m_radius * P_NUMBER;
-	m_areaOfCircle = P_NUMBER * m_radius * m_radius;
-
-}
-
 CCircle::CCircle(ÑPoint centre, double radius)
 	: m_centre(centre), m_radius(radius)
 {

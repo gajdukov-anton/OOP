@@ -150,10 +150,12 @@
     <ClInclude Include="CCircle.h" />
     <ClInclude Include="CGeometry.h" />
     <ClInclude Include="CLineSegment.h" />
+    <ClInclude Include="CommandForCreateShape.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="ISolidShape.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="СPoint.h" />
@@ -162,6 +164,7 @@
     <ClCompile Include="CCircle.cpp" />
     <ClCompile Include="CGeometry.cpp" />
     <ClCompile Include="CLineSegment.cpp" />
+    <ClCompile Include="CommandForCreateShape.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="geometry.cpp" />
@@ -174,6 +177,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="СPoint.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="geometry.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

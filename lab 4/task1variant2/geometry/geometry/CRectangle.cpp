@@ -2,10 +2,6 @@
 #include "CRectangle.h"
 
 
-CRectangle::CRectangle()
-{
-}
-
 CRectangle::CRectangle(ÑPoint leftTop, ÑPoint rightTop, ÑPoint rightBottom, ÑPoint leftBottom)
 	: m_leftTop(leftTop), m_leftBottom(leftBottom), m_rightTop(rightTop), m_rightBottom(rightBottom)
 {

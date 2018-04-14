@@ -9,7 +9,6 @@ public:
 	CCircle(ÑPoint centre, double radius);
 	CCircle(ÑPoint centre, double radius,
 		std::string outlineColor, std::string fillColor);
-	CCircle();
 	double GetArea() const override;
 	double GetPerimeter() const override;
 	ÑPoint GetCentre() const ;

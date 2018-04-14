@@ -7,12 +7,16 @@
 CLineSegment::CLineSegment(ÑPoint startPoint, ÑPoint finishPoint, std::string outlineColor)
 	: m_startPoint(startPoint), m_finishPoint(finishPoint), m_outlineColor(outlineColor)
 {
+	m_line = m_finishPoint - m_startPoint;
+	m_lengthOfLine = sqrt(m_line.GetX() * m_line.GetX() + m_line.GetY() * m_line.GetY());
 }
 
 CLineSegment::CLineSegment(ÑPoint startPoint, ÑPoint finishPoint)
 	: m_startPoint(startPoint), m_finishPoint(finishPoint)
 {
 	m_outlineColor = "black";
+	m_line = m_finishPoint - m_startPoint;
+	m_lengthOfLine = sqrt(m_line.GetX() * m_line.GetX() + m_line.GetY() * m_line.GetY());
 }
 
 double CLineSegment::GetArea() const
@@ -43,7 +47,7 @@ std::string CLineSegment::GetOutlineColor() const
 std::string CLineSegment::ToString() const
 {
 
-	return "The shape of CLineSergment type can't have perimeter and area.\n";
+	return "The shape of CLineSergment type can't have perimeter and area.";
 }
 
 CLineSegment::~CLineSegment()

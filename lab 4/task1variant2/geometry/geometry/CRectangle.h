@@ -5,7 +5,6 @@
 class CRectangle : public ISolidShape
 {
 public:
-	CRectangle();
 	CRectangle(ÑPoint leftTop, ÑPoint rightTop, ÑPoint rightBottom, ÑPoint leftBottom);
 	CRectangle(ÑPoint leftTop, ÑPoint rightTop, ÑPoint rightBottom, 
 		ÑPoint leftBottom, std::string outlineColor, std::string fillColor);

@@ -42,6 +42,12 @@
     <ClInclude Include="..\..\geometry\geometry\CRectangle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\geometry\geometry\CommandForCreateShape.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\geometry\geometry\CGeometry.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +78,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="..\..\geometry\geometry\CRectangle.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\geometry\geometry\CommandForCreateShape.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\geometry\geometry\CGeometry.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

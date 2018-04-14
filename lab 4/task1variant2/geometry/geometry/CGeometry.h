@@ -8,18 +8,27 @@
 #include "CTriangle.h"
 #include <vector>
 #include <string>
+#include <iostream>
+#include <sstream>
 
 class CGeometry
 {
 public:
-	CGeometry();
-
-	bool AddGeometryShape() const;
-	IShape* GetShapeMaxArea() const;
-	IShape* GetShapeMinPerimeter() const;
+	CGeometry(std::istream& input, std::ostream& output);
+	bool HandleCommand();
+	bool GetMaxShape() const;
+	bool GetMinShape() const;
 	~CGeometry();
+	std::vector <IShape *> m_geometryShape;
 private:
-	std::vector <IShape *> geometryShape;
+	std::istream& m_input;
+	std::ostream& m_output;
+	bool AddCircle(std::istream& input);
+	bool AddRectangle(std::istream& input);
+	bool AddTriangle(std::istream& input);
+	bool AddLineCegment(std::istream& input);
+	bool GetShapeMaxArea() const;
+	bool GetShapeMinPerimeter() const;
 
 };
 

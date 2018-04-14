@@ -18,6 +18,8 @@ public:
 private:
 	ÑPoint m_startPoint;
 	ÑPoint m_finishPoint;
+	ÑPoint m_line;
+	double m_lengthOfLine;
 	std::string m_outlineColor;
 };
 
