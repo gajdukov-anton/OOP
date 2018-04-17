@@ -8,8 +8,6 @@ CTriangle::CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3)
 {
 	FillLines();
 	FillLengthOfLines();
-	m_fillColor = "black";
-	m_outlineColor = "black";
 	m_perimetr = m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3;
 	m_semiperimeter = (m_perimetr) / 2;
 	m_area = sqrt(m_semiperimeter * (m_semiperimeter - m_lengthOfLine1) * (m_semiperimeter - m_lengthOfLine2) * (m_semiperimeter - m_lengthOfLine3));
@@ -77,7 +75,15 @@ std::string  CTriangle::GetOutlineColor() const
 
 std::string CTriangle::ToString() const
 {
-	return "Triangle has only three vertex.";
+	std::string str;
+	std::ostringstream  stream;
+	stream << "Area: " << GetArea() << std::endl;
+	stream << "OutlineColor: " << GetOutlineColor() << std::endl;
+	stream << "FillColor: " << GetFillColor() << std::endl;
+	stream << "Perimetr: " << GetPerimeter() << std::endl;
+	stream << "Specificity: " << "Triangle has only three vertex." << std::endl;
+
+	return stream.str();
 }
 
 

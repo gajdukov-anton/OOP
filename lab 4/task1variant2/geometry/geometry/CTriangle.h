@@ -1,6 +1,7 @@
 #pragma once
 #include "ISolidShape.h"
 #include "ÑPoint.h"
+#include <sstream>
 #include <math.h>
 
 class CTriangle : public ISolidShape
@@ -24,8 +25,8 @@ private:
 	ÑPoint m_vertex1;
 	ÑPoint m_vertex2;
 	ÑPoint m_vertex3;
-	std::string m_outlineColor;
-	std::string m_fillColor;
+	std::string m_outlineColor = "black";
+	std::string m_fillColor = "black";
 	double m_semiperimeter;
 	ÑPoint m_line1;
 	ÑPoint m_line2;

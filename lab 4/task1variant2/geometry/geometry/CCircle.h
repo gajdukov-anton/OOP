@@ -2,6 +2,8 @@
 #include "ISolidShape.h"
 #include "ÑPoint.h"
 #include <math.h>
+#include <sstream>
+
 
 class CCircle : public ISolidShape
 {
@@ -24,7 +26,7 @@ private:
 	double m_areaOfCircle;
 	double m_lengthOfCircle;
 	const double P_NUMBER = 3.14;
-	std::string m_outlineColor = "";
-	std::string m_fillColor = "";
+	std::string m_outlineColor = "black";
+	std::string m_fillColor = "black";
 };
 

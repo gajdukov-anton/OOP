@@ -5,8 +5,6 @@
 CRectangle::CRectangle(ÑPoint leftTop, ÑPoint rightTop, ÑPoint rightBottom, ÑPoint leftBottom)
 	: m_leftTop(leftTop), m_leftBottom(leftBottom), m_rightTop(rightTop), m_rightBottom(rightBottom)
 {
-	m_outlineColor = "black";
-	m_fillColor = "black";
 	m_vectorWidth = leftTop - rightTop;
 	m_vectroHeight = leftTop - leftBottom;
 	m_height = sqrt(m_vectroHeight.GetX() * m_vectroHeight.GetX() + m_vectroHeight.GetY() * m_vectroHeight.GetY());
@@ -60,7 +58,15 @@ double CRectangle::GetWidth() const
 
 std::string CRectangle::ToString() const
 {
-	return "Rectangle has same lines";
+	std::string str;
+	std::ostringstream  stream;
+	stream << "Area: " << GetArea() << std::endl;
+	stream << "OutlineColor: " << GetOutlineColor() << std::endl;
+	stream << "FillColor: " << GetFillColor() << std::endl;
+	stream << "Perimetr: " << GetPerimeter() << std::endl;
+	stream << "Specificity: " << "Rectangle has same lines" << std::endl;
+
+	return stream.str();
 }
 
 ÑPoint CRectangle::GetLeftTop() const

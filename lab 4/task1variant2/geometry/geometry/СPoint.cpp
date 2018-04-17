@@ -13,6 +13,8 @@
 	m_y = 0.0;
 }
 
+
+
 double ÑPoint::GetX() const
 {
 	return m_x;

@@ -1,6 +1,7 @@
 #pragma once
 #include "ISolidShape.h"
 #include "ÑPoint.h"
+#include <sstream>
 
 class CRectangle : public ISolidShape
 {
@@ -27,8 +28,8 @@ private:
 	double m_height = 0;
 	double m_area = 0;
 	double m_perimeter = 0;
-	std::string m_outlineColor = "";
-	std::string m_fillColor = "";
+	std::string m_outlineColor = "black";
+	std::string m_fillColor = "black";
 	ÑPoint m_vectorWidth;
 	ÑPoint m_vectroHeight;
 };
