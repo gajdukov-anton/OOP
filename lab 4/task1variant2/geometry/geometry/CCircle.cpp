@@ -16,22 +16,6 @@ CCircle::CCircle(ÑPoint centre, double radius,
 	m_areaOfCircle = P_NUMBER * m_radius * m_radius;
 }
 
-
-void CCircle::FillCircleParameters()
-{
-	m_radius = 10.0;
-	m_lengthOfCircle = 2 * m_radius * P_NUMBER;
-	m_areaOfCircle = P_NUMBER * m_radius * m_radius;
-	if (m_outlineColor == "")
-	{
-		m_outlineColor = "black";
-	}
-	if (m_fillColor == "")
-	{
-		m_fillColor = "black";
-	}
-}
-
 double CCircle::GetPerimeter() const
 {
 	return m_lengthOfCircle;

@@ -27,7 +27,8 @@ public:
 private:
 	std::istream& m_input;
 	std::ostream& m_output;
-	bool isColor(std::string& color);
+	bool IsColor(std::string& color);
+	bool CreateVectorOfNumbers(std::vector<double>& vectorOfNumbers, int amountOfNumbers);
 	bool AddCircle(std::istream& input);
 	bool AddRectangle(std::istream& input);
 	bool AddTriangle(std::istream& input);

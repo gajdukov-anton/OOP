@@ -20,7 +20,6 @@ public:
 	std::string GetFillColor() const override;
 	~CCircle();
 private:
-	void FillCircleParameters();
 	double m_radius;
 	ÑPoint m_centre;
 	double m_areaOfCircle;

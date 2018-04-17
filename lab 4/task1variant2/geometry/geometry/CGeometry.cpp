@@ -70,7 +70,7 @@ bool CGeometry::StringToDouble(std::string strWithNumber, double& number)
 	return true;
 }
 
-bool CGeometry::isColor(std::string& color)
+bool CGeometry::IsColor(std::string& color)
 {
 	std::regex regex(R"(^([A-Fa-f0-9]){6}?)");
 	std::smatch result;
@@ -104,9 +104,14 @@ bool CGeometry::AddCircle(std::istream& input)
 	ÑPoint center(vectorOfCoordinate[0], vectorOfCoordinate[1]);
 	input >> outlineColor >> fillColor;
 
-	if (!(isColor(outlineColor) && isColor(fillColor)))
+	if (!(IsColor(outlineColor) && IsColor(fillColor)))
 	{
 		m_output << "Undefine color" << endl;
+		return false;
+	}
+	if (vectorOfCoordinate[2] < 0)
+	{
+		m_output << "Radius cannot be less than zero" << endl;
 		return false;
 	}
 	if (outlineColor == "" && fillColor == "")
@@ -117,6 +122,7 @@ bool CGeometry::AddCircle(std::istream& input)
 	{
 		m_geometryShape.push_back(new CCircle(center, vectorOfCoordinate[2], outlineColor, fillColor));
 	}
+	m_output << "Circle was added" << endl;
 	return true;
 }
 
@@ -145,7 +151,7 @@ bool CGeometry::AddRectangle(std::istream& input)
 	ÑPoint LeftBottom(vectorOfCoordinate[4], vectorOfCoordinate[5]);
 	ÑPoint RightBottom(vectorOfCoordinate[6], vectorOfCoordinate[7]);
 	input >> outlineColor >> fillColor;
-	if (!(isColor(outlineColor) && isColor(fillColor)))
+	if (!(IsColor(outlineColor) && IsColor(fillColor)))
 	{
 		m_output << "Undefine color" << endl;
 		return false;
@@ -158,6 +164,7 @@ bool CGeometry::AddRectangle(std::istream& input)
 	{
 		m_geometryShape.push_back(new CRectangle(leftTop, RightTop, LeftBottom, RightBottom, outlineColor, fillColor));
 	}
+	m_output << "Rectangle was added" << endl;
 	return true;
 }
 
@@ -184,7 +191,7 @@ bool CGeometry::AddLineCegment(std::istream& input)
 	ÑPoint startPoint(vectorOfCoordinate[0], vectorOfCoordinate[1]);
 	ÑPoint finishPoint(vectorOfCoordinate[2], vectorOfCoordinate[3]);
 
-	if (!(isColor(outlineColor)))
+	if (!(IsColor(outlineColor)))
 	{
 		m_output << "Undefine color" << endl;
 		return false;
@@ -197,6 +204,7 @@ bool CGeometry::AddLineCegment(std::istream& input)
 	{
 		m_geometryShape.push_back(new CLineSegment(startPoint, finishPoint, outlineColor));
 	}
+	m_output << "LineSegment was added" << endl;
 	return true;
 }
 
@@ -225,7 +233,7 @@ bool CGeometry::AddTriangle(std::istream& input)
 	ÑPoint vertex3(vectorOfCoordinate[4], vectorOfCoordinate[5]);
 	input >> outlineColor >> fillColor;
 
-	if (!(isColor(outlineColor) && isColor(fillColor)))
+	if (!(IsColor(outlineColor) && IsColor(fillColor)))
 	{
 		m_output << "Undefine color" << endl;
 		return false;
@@ -237,8 +245,8 @@ bool CGeometry::AddTriangle(std::istream& input)
 	else
 	{
 		m_geometryShape.push_back(new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor));
-
 	}
+	m_output << "Triangle was added" << endl;
 	return true;
 }
 
@@ -280,7 +288,6 @@ bool CGeometry::GetMaxArea() const
 		m_output << shape->GetArea() << endl;
 		return true;
 	}
-	m_output << 0 << endl;
 	return false;
 }
 
@@ -292,7 +299,6 @@ bool CGeometry::GetMinPerimeter() const
 		m_output << shape->GetPerimeter() << endl;
 		return true;
 	}
-	m_output << 0 << endl;
 	return false;
 }
 
