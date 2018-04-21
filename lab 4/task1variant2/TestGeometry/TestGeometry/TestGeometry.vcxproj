@@ -153,6 +153,7 @@
     <ClInclude Include="..\..\geometry\geometry\CommandForCreateShape.h" />
     <ClInclude Include="..\..\geometry\geometry\CRectangle.h" />
     <ClInclude Include="..\..\geometry\geometry\CTriangle.h" />
+    <ClInclude Include="..\..\geometry\geometry\CVector.h" />
     <ClInclude Include="..\..\geometry\geometry\IShape.h" />
     <ClInclude Include="..\..\geometry\geometry\ISolidShape.h" />
     <ClInclude Include="..\..\geometry\geometry\СPoint.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\..\geometry\geometry\CommandForCreateShape.cpp" />
     <ClCompile Include="..\..\geometry\geometry\CRectangle.cpp" />
     <ClCompile Include="..\..\geometry\geometry\CTriangle.cpp" />
+    <ClCompile Include="..\..\geometry\geometry\CVector.cpp" />
     <ClCompile Include="..\..\geometry\geometry\IShape.cpp" />
     <ClCompile Include="..\..\geometry\geometry\ISolidShape.cpp" />
     <ClCompile Include="..\..\geometry\geometry\СPoint.cpp" />

@@ -2,28 +2,34 @@
 #include "CRectangle.h"
 
 
-CRectangle::CRectangle(ÑPoint leftTop, ÑPoint rightTop, ÑPoint rightBottom, ÑPoint leftBottom)
-	: m_leftTop(leftTop), m_leftBottom(leftBottom), m_rightTop(rightTop), m_rightBottom(rightBottom)
+CRectangle::CRectangle(ÑPoint leftTop, ÑPoint rightBottom)
+	: m_leftTop(leftTop), m_rightBottom(rightBottom)
 {
-	m_vectorWidth = leftTop - rightTop;
-	m_vectroHeight = leftTop - leftBottom;
-	m_height = sqrt(m_vectroHeight.GetX() * m_vectroHeight.GetX() + m_vectroHeight.GetY() * m_vectroHeight.GetY());
-	m_width = sqrt(m_vectorWidth.GetX() * m_vectorWidth.GetX() + m_vectorWidth.GetY() * m_vectorWidth.GetY());
+	m_outlineColor = "ffffff";
+	m_fillColor = "ffffff";
+	m_height = leftTop.GetY() - rightBottom.GetY();
+	m_width = leftTop.GetX() - rightBottom.GetX();
+	if (m_height < 0)
+		m_height *= -1;
+	if (m_width < 0)
+		m_width *= -1;	
 	m_area = m_height * m_width;
 	m_perimeter = 2 * (m_height + m_width);
 }
 
-CRectangle::CRectangle(ÑPoint leftTop, ÑPoint rightTop, ÑPoint rightBottom,
-	ÑPoint leftBottom, std::string outlineColor, std::string fillColor)
-	: m_leftTop(leftTop), m_leftBottom(leftBottom), m_rightTop(rightTop), m_rightBottom(rightBottom),
-	m_fillColor(fillColor), m_outlineColor(outlineColor)
+CRectangle::CRectangle(ÑPoint leftTop, ÑPoint rightBottom,
+	std::string outlineColor, std::string fillColor)
+	: m_leftTop(leftTop), m_rightBottom(rightBottom), m_fillColor(fillColor), m_outlineColor(outlineColor)
 {
-	m_vectorWidth = leftTop - rightTop;
-	m_vectroHeight = leftTop - leftBottom;
-	m_height = sqrt(m_vectroHeight.GetX() * m_vectroHeight.GetX() + m_vectroHeight.GetY() * m_vectroHeight.GetY());
-	m_width = sqrt(m_vectorWidth.GetX() * m_vectorWidth.GetX() + m_vectorWidth.GetY() * m_vectorWidth.GetY());
+	m_height = leftTop.GetY() - rightBottom.GetY();
+	m_width = leftTop.GetX() - rightBottom.GetX();
+	if (m_height < 0)
+		m_area *= -1;
+	if (m_width < 0)
+		m_width *= -1;
 	m_area = m_height * m_width;
 	m_perimeter = 2 * (m_height + m_width);
+
 }
 
 double CRectangle::GetArea() const

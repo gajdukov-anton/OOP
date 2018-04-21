@@ -51,7 +51,6 @@ bool CGeometry::HandleCommand()
 		GetMaxArea();
 		return true;
 	}
-
 	m_output << "Unknown command"  <<  endl;
 	return false;
 }
@@ -82,31 +81,41 @@ bool CGeometry::IsColor(std::string& color)
 	return true;
 }
 
+bool CGeometry::ReadVectorOfNumbers(std::istream& input, std::vector<double>& vectorOfNumbers)
+{
+	std::string strNumber;
+	for (size_t i = 0; i < vectorOfNumbers.size(); i++)
+	{
+		if (!(input >> strNumber))
+		{
+			m_output << "Not enough coordinates to create a shape, please enter " << vectorOfNumbers.size() << " coordinates in the format: 0.0 " << endl;
+			return false;
+		}
+		if (!StringToDouble(strNumber, vectorOfNumbers[i]))
+		{
+			m_output << "Invalid type of coordinate, enter a coordinate in the format: 12.0 " << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
 bool CGeometry::AddCircle(std::istream& input)
 {
 	std::string outlineColor = "";
 	std::string fillColor = "";
-	std::string strNumber;
 	std::vector<double> vectorOfCoordinate(3);
-	for (size_t i = 0; i < vectorOfCoordinate.size(); i++)
+	if (!(ReadVectorOfNumbers(input, vectorOfCoordinate)))
 	{
-		if (!(input >> strNumber))
-		{
-			m_output << "Not enough coordinates to create a shape" << endl;
-			return false;
-		}
-		if (!StringToDouble(strNumber, vectorOfCoordinate[i]))
-		{
-			m_output << "Invalid type of coordinate" << endl;
-			return false;
-		}
+		return false;
 	}
+
 	ÑPoint center(vectorOfCoordinate[0], vectorOfCoordinate[1]);
 	input >> outlineColor >> fillColor;
 
 	if (!(IsColor(outlineColor) && IsColor(fillColor)))
 	{
-		m_output << "Undefine color" << endl;
+		m_output << "Undefine color, please enter color in the format: 00ff00" << endl;
 		return false;
 	}
 	if (vectorOfCoordinate[2] < 0)
@@ -130,39 +139,27 @@ bool CGeometry::AddRectangle(std::istream& input)
 {
 	std::string outlineColor = "";
 	std::string fillColor = "";
-	std::string strNumber;
-	std::vector<double> vectorOfCoordinate(8);
-	
-	for (size_t i = 0; i < vectorOfCoordinate.size(); i++)
+	std::vector<double> vectorOfCoordinate(4);
+	if (!(ReadVectorOfNumbers(input, vectorOfCoordinate)))
 	{
-		if (!(input >> strNumber))
-		{
-			m_output << "Òot enough coordinates to create a shape" << endl;
-			return false;
-		}
-		if (!StringToDouble(strNumber, vectorOfCoordinate[i]))
-		{
-			m_output << "Invalid type of coordinate" << endl;
-			return false;
-		}
+		return false;
 	}
+	
 	ÑPoint leftTop(vectorOfCoordinate[0], vectorOfCoordinate[1]);
-	ÑPoint RightTop(vectorOfCoordinate[2], vectorOfCoordinate[3]);
-	ÑPoint LeftBottom(vectorOfCoordinate[4], vectorOfCoordinate[5]);
-	ÑPoint RightBottom(vectorOfCoordinate[6], vectorOfCoordinate[7]);
+	ÑPoint RightBottom(vectorOfCoordinate[2], vectorOfCoordinate[3]);
 	input >> outlineColor >> fillColor;
 	if (!(IsColor(outlineColor) && IsColor(fillColor)))
 	{
-		m_output << "Undefine color" << endl;
+		m_output << "Undefine color, please enter color in the format: 00ff00" << endl;
 		return false;
 	}
 	if (outlineColor == "" && fillColor == "")
 	{
-		m_geometryShape.push_back(new CRectangle(leftTop, RightTop, LeftBottom, RightBottom));
+		m_geometryShape.push_back(new CRectangle(leftTop, RightBottom));
 	}
 	else
 	{
-		m_geometryShape.push_back(new CRectangle(leftTop, RightTop, LeftBottom, RightBottom, outlineColor, fillColor));
+		m_geometryShape.push_back(new CRectangle(leftTop, RightBottom, outlineColor, fillColor));
 	}
 	m_output << "Rectangle was added" << endl;
 	return true;
@@ -171,29 +168,19 @@ bool CGeometry::AddRectangle(std::istream& input)
 bool CGeometry::AddLineCegment(std::istream& input)
 {
 	std::string outlineColor = "";
-	std::string strNumber;
 	std::vector<double> vectorOfCoordinate(4);
-
-	for (size_t i = 0; i < vectorOfCoordinate.size(); i++)
+	if (!(ReadVectorOfNumbers(input, vectorOfCoordinate)))
 	{
-		if (!(input >> strNumber))
-		{
-			m_output << "Òot enough coordinates to create a shape" << endl;
-			return false;
-		}
-		if (!StringToDouble(strNumber, vectorOfCoordinate[i]))
-		{
-			m_output << "Invalid type of coordinate" << endl;
-			return false;
-		}
+		return false;
 	}
+
 	input >> outlineColor;
 	ÑPoint startPoint(vectorOfCoordinate[0], vectorOfCoordinate[1]);
 	ÑPoint finishPoint(vectorOfCoordinate[2], vectorOfCoordinate[3]);
 
 	if (!(IsColor(outlineColor)))
 	{
-		m_output << "Undefine color" << endl;
+		m_output << "Undefine color, please enter color in the format: 00ff00" << endl;
 		return false;
 	}
 	if (outlineColor == "")
@@ -212,22 +199,12 @@ bool CGeometry::AddTriangle(std::istream& input)
 {
 	std::string outlineColor = "";
 	std::string fillColor = "";
-	std::string strNumber;
 	std::vector<double> vectorOfCoordinate(6);
-
-	for (size_t i = 0; i < vectorOfCoordinate.size(); i++)
+	if (!(ReadVectorOfNumbers(input, vectorOfCoordinate)))
 	{
-		if (!(input >> strNumber))
-		{
-			m_output << "Òot enough coordinates to create a shape" << endl;
-			return false;
-		}
-		if (!StringToDouble(strNumber, vectorOfCoordinate[i]))
-		{
-			m_output << "Invalid type of coordinate" << endl;
-			return false;
-		}
+		return false;
 	}
+
 	ÑPoint vertex1(vectorOfCoordinate[0], vectorOfCoordinate[1]);
 	ÑPoint vertex2(vectorOfCoordinate[2], vectorOfCoordinate[3]);
 	ÑPoint vertex3(vectorOfCoordinate[4], vectorOfCoordinate[5]);
@@ -235,7 +212,7 @@ bool CGeometry::AddTriangle(std::istream& input)
 
 	if (!(IsColor(outlineColor) && IsColor(fillColor)))
 	{
-		m_output << "Undefine color" << endl;
+		m_output << "Undefine color, please enter color in the format: 00ff00" << endl;
 		return false;
 	}
 	if (outlineColor == "" && fillColor == "")

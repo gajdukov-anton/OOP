@@ -23,20 +23,19 @@ public:
 	bool GetMinShape() const;
 	bool StringToDouble(std::string strWithNumber, double& number);
 	~CGeometry();
-	std::vector <IShape *> m_geometryShape;
 private:
 	std::istream& m_input;
 	std::ostream& m_output;
+	std::vector <IShape *> m_geometryShape;
 	bool IsColor(std::string& color);
-	bool CreateVectorOfNumbers(std::vector<double>& vectorOfNumbers, int amountOfNumbers);
 	bool AddCircle(std::istream& input);
 	bool AddRectangle(std::istream& input);
 	bool AddTriangle(std::istream& input);
 	bool AddLineCegment(std::istream& input);
+	bool ReadVectorOfNumbers(std::istream& input, std::vector<double>& vectorOfNumbers);
 	bool GetMaxArea() const;
 	bool GetMinPerimeter() const;
 	IShape* FindShapeMaxArea() const;
 	IShape* FindShapeMinPerimetr() const;
-
 };
 

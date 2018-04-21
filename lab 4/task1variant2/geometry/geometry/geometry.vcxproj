@@ -161,6 +161,7 @@
     <ClInclude Include="CommandForCreateShape.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CTriangle.h" />
+    <ClInclude Include="CVector.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="ISolidShape.h" />
     <ClInclude Include="resource.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="CommandForCreateShape.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CTriangle.cpp" />
+    <ClCompile Include="CVector.cpp" />
     <ClCompile Include="geometry.cpp" />
     <ClCompile Include="IShape.cpp" />
     <ClCompile Include="ISolidShape.cpp" />

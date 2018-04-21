@@ -6,36 +6,29 @@
 CTriangle::CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3)
 	: m_vertex1(vertex1), m_vertex2(vertex2), m_vertex3(vertex3)
 {
-	FillLines();
-	FillLengthOfLines();
-	m_perimetr = m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3;
-	m_semiperimeter = (m_perimetr) / 2;
-	m_area = sqrt(m_semiperimeter * (m_semiperimeter - m_lengthOfLine1) * (m_semiperimeter - m_lengthOfLine2) * (m_semiperimeter - m_lengthOfLine3));
+	m_outlineColor = "ffffff";
+	m_fillColor = "ffffff";
+	CulcalatePerimetrAndArea(m_vertex1, m_vertex2, m_vertex3);
 }
 
 CTriangle::CTriangle(ÑPoint vertex1, ÑPoint vertex2, ÑPoint vertex3,
 	std::string outlineColor, std::string fillColor)
 	: m_vertex1(vertex1), m_vertex2(vertex2), m_vertex3(vertex3), m_outlineColor(outlineColor), m_fillColor(fillColor)
 {
-	FillLines();
-	FillLengthOfLines();
-	m_perimetr = m_lengthOfLine1 + m_lengthOfLine2 + m_lengthOfLine3;
-	m_semiperimeter = (m_perimetr) / 2;
-	m_area = sqrt(m_semiperimeter * (m_semiperimeter - m_lengthOfLine1) * (m_semiperimeter - m_lengthOfLine2) * (m_semiperimeter - m_lengthOfLine3));
+	CulcalatePerimetrAndArea(m_vertex1, m_vertex2, m_vertex3);
 }
 
-void CTriangle::FillLines()
+void CTriangle::CulcalatePerimetrAndArea(ÑPoint& vertex1, ÑPoint& vertex2, ÑPoint& vertex3)
 {
-	m_line1 = m_vertex2 - m_vertex1;
-	m_line2 = m_vertex3 - m_vertex2;
-	m_line3 = m_vertex1 - m_vertex3;
-}
-
-void CTriangle::FillLengthOfLines()
-{
-	m_lengthOfLine1 = sqrt(m_line1.GetX() * m_line1.GetX() + m_line1.GetY() * m_line1.GetY());
-	m_lengthOfLine2 = sqrt(m_line2.GetX() * m_line2.GetX() + m_line2.GetY() * m_line2.GetY());
-	m_lengthOfLine3 = sqrt(m_line3.GetX() * m_line3.GetX() + m_line3.GetY() * m_line3.GetY());
+	CVector line1(vertex1, vertex2);
+	CVector line2(vertex2, vertex3);
+	CVector line3(vertex3, vertex1);
+	double lengthOfLine1 = sqrt(line1.GetX() * line1.GetX() + line1.GetY() * line1.GetY());
+	double lengthOfLine2 = sqrt(line2.GetX() * line2.GetX() + line2.GetY() * line2.GetY());
+	double lengthOfLine3 = sqrt(line3.GetX() * line3.GetX() + line3.GetY() * line3.GetY());
+	m_perimetr = lengthOfLine1 + lengthOfLine2 + lengthOfLine3;
+	double semiperimeter = (m_perimetr) / 2;
+	m_area = sqrt(semiperimeter * (semiperimeter - lengthOfLine1) * (semiperimeter - lengthOfLine2) * (semiperimeter - lengthOfLine3));
 }
 
 double CTriangle::GetArea() const
@@ -82,7 +75,6 @@ std::string CTriangle::ToString() const
 	stream << "FillColor: " << GetFillColor() << std::endl;
 	stream << "Perimetr: " << GetPerimeter() << std::endl;
 	stream << "Specificity: " << "Triangle has only three vertex." << std::endl;
-
 	return stream.str();
 }
 

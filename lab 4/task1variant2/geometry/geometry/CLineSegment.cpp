@@ -14,6 +14,7 @@ CLineSegment::CLineSegment(ÑPoint startPoint, ÑPoint finishPoint, std::string ou
 CLineSegment::CLineSegment(ÑPoint startPoint, ÑPoint finishPoint)
 	: m_startPoint(startPoint), m_finishPoint(finishPoint)
 {
+	m_outlineColor = "ffffff";
 	m_line = m_finishPoint - m_startPoint;
 	m_lengthOfLine = sqrt(m_line.GetX() * m_line.GetX() + m_line.GetY() * m_line.GetY());
 }
