@@ -103,16 +103,38 @@ CVector3D const CVector3D::operator +() const
 
 bool CVector3D::operator ==(CVector3D const& vector) const
 {
-	double a = x - vector.x;
-	double b = y - vector.y;
-	double c = z - vector.z;
+	double differenceForX = x - vector.x;
+	double differenceForY = y - vector.y;
+	double differenceForC = z - vector.z;
 
-	return (a < EPSILON) && (b < EPSILON) && (c < EPSILON);
+	return (differenceForX < EPSILON) && (differenceForY < EPSILON) && (differenceForC < EPSILON);
 }
 
 bool CVector3D::operator !=(CVector3D const& vector) const
 {
 	return (x != vector.x) || (y != vector.y) || (z != vector.z);
+}
+
+std::ostream& operator <<(std::ostream& stream, CVector3D const& vector)
+{
+	stream << vector.x << ' ' << vector.y << ' ' << vector.z;
+	return stream;
+}
+
+std::istream& operator >>(std::istream& stream, CVector3D& vector)
+{
+	double corX;
+	double corY;
+	double corZ;
+	if (stream >> corX && stream >> corY && stream >> corZ)
+	{
+		vector = CVector3D(corX, corY, corZ);
+	}
+	else
+	{
+		stream.setstate(std::ios_base::failbit | stream.rdstate());
+	}
+	return stream;
 }
 
 CVector3D::~CVector3D()

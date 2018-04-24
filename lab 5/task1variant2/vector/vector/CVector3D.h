@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <iostream>
 
 class CVector3D
 {
@@ -27,7 +28,8 @@ public:
 	~CVector3D();
 private:
 	double m_lenght;
-	bool CompareDoubles(double A, double B);
 };
 
 CVector3D const operator *(double scalar, CVector3D const& vector);
+std::ostream& operator <<(std::ostream& stream, CVector3D const& vector);
+std::istream& operator >>(std::istream& stream, CVector3D& vector);
