@@ -27,9 +27,12 @@ public:
 
 	~CVector3D();
 private:
-	double m_lenght;
+	double m_length;
 };
 
 CVector3D const operator *(double scalar, CVector3D const& vector);
 std::ostream& operator <<(std::ostream& stream, CVector3D const& vector);
 std::istream& operator >>(std::istream& stream, CVector3D& vector);
+CVector3D Normalize(CVector3D const& vector);
+double DotProduct(CVector3D const& vector1, CVector3D const& vector2);
+CVector3D CrossProduct(CVector3D const& vector1, CVector3D const& vector2);
