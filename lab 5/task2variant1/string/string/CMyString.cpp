@@ -32,6 +32,12 @@ CMyString::CMyString(std::string const& stlString)
 {
 }
 
+CMyString::CMyString(CMyString && other)
+	: CMyString(other.GetStringData(), other.GetLength())
+{
+	other.Clear();
+}
+
 const char* CMyString::GetStringData() const
 {
 	return m_ptrChar ? m_ptrChar.get() + '\0' : "";
@@ -147,6 +153,10 @@ char& CMyString::operator[](size_t index)
 bool CMyString::operator <(CMyString const& other) const
 {
 	size_t i = 0;
+	if (m_ptrChar.get() == other.m_ptrChar.get())
+	{
+		return false;
+	}
 	while (i < m_length && i < other.m_length)
 	{
 		if (m_ptrChar[i] > other.m_ptrChar[i])
@@ -165,6 +175,10 @@ bool CMyString::operator <(CMyString const& other) const
 bool CMyString::operator >(CMyString const& other) const
 {
 	size_t i = 0;
+	if (m_ptrChar.get() == other.m_ptrChar.get())
+	{
+		return false;
+	}
 	while (i < m_length && i < other.m_length)
 	{
 		if (m_ptrChar[i] < other.m_ptrChar[i])
@@ -179,6 +193,102 @@ bool CMyString::operator >(CMyString const& other) const
 	}
 	return true;
 }
+
+bool CMyString::operator <=(CMyString const& other) const
+{
+	size_t i = 0;
+	if (m_ptrChar.get() == other.m_ptrChar.get())
+	{
+		return true;
+	}
+	while (i < m_length && i < other.m_length)
+	{
+		if (m_ptrChar[i] > other.m_ptrChar[i])
+		{
+			return false;
+		}
+		i++;
+	}
+	if (i < m_length)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool CMyString::operator >=(CMyString const& other) const
+{
+	size_t i = 0;
+	if (m_ptrChar.get() == other.m_ptrChar.get())
+	{
+		return true;
+	}
+	while (i < m_length && i < other.m_length)
+	{
+		if (m_ptrChar[i] < other.m_ptrChar[i])
+		{
+			return false;
+		}
+		i++;
+	}
+	if (i < other.m_length)
+	{
+		return false;
+	}
+	return true;
+}
+
+std::ostream& operator <<(std::ostream& stream, CMyString const& myStr)
+{
+	stream << myStr.GetStringData();
+	return stream;
+}
+
+std::istream& operator >>(std::istream& stream, CMyString& myStr)
+{
+	std::string strForRead;
+	if (stream >> strForRead)
+	{
+		myStr = strForRead;
+	}
+	else
+	{
+		stream.setstate(std::ios_base::failbit | stream.rdstate());
+	}
+	return stream;
+}
+
+CMyString& CMyString::operator=(CMyString && other)
+{
+	if (&other != this)
+	{
+		m_ptrChar = NULL;
+		m_length = 0;
+		std::swap(m_ptrChar, other.m_ptrChar);
+		std::swap(m_length, other.m_length);
+	}
+	return *this;
+}
+
+CMyString CMyString::SubString(size_t start, size_t length)const
+{
+	start--;
+	if (length + start <= m_length)
+	{
+		std::unique_ptr<char[] >  NewptrChar = std::make_unique<char[]>(length);
+		for (size_t i = start; i < length + start; i++)
+		{
+			NewptrChar[i - start] = m_ptrChar[i];
+		}
+		return CMyString(NewptrChar.get(), length);
+	}
+	else
+	{
+		throw std::out_of_range("the length is out of range current string");
+	}
+}
+
+
 
 CMyString::~CMyString()
 {
