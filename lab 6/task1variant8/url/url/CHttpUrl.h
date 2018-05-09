@@ -10,7 +10,7 @@ enum Protocol
 class CHttpUrl
 {
 public:
-	//CHttpUrl(std::string const& url);
+    CHttpUrl(std::string const& url);
 	CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol = HTTP);
 	CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port);
 	std::string GetUrl() const;
@@ -27,6 +27,6 @@ private:
 	unsigned short m_port;
 	//bool CheckDomain(std::string const& domain) const;
 	bool CheckDocument(std::string& document);
-	bool ParseUrl(std::string const& url);
+	void ParseUrl(std::string const& url);
 };
 

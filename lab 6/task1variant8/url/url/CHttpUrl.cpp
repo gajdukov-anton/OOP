@@ -1,6 +1,14 @@
 #include "stdafx.h"
 #include "CHttpUrl.h"
+#include "CommandForParsing.h"
+#include "CUrlParsingError.h"
 
+
+CHttpUrl::CHttpUrl(std::string const& url)
+	:m_url(url)
+{
+	ParseUrl(url);
+}
 
 CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol)
 	:m_domain(domain), m_document(document), m_protocol(protocol)
@@ -23,25 +31,35 @@ CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Proto
 
 
 
-bool CHttpUrl::ParseUrl(std::string const& url)
+void CHttpUrl::ParseUrl(std::string const& url)
 {
-	std::string str = url.substr(0, 4);
-	//ToLowerCase(str);
-	if (str != "http" || str != "https")
-		return false;
-	else if(str == "http")
+	size_t pos;
+	std::string str = GetProtocolFromUrl(url, pos);
+
+	if (str == "")
+		throw CUrlParsingError("Invalid type of Protocol.");
+	if (str == "http")
 	{
 		m_protocol = HTTP;
-		m_url += str;
+		m_port = 80;
 	}
-	else
+	if (str == "https")
 	{
 		m_protocol = HTTPS;
-		m_url += str;
+		m_port = 443;
 	}
-	
 
+	str = GetDomainFromUrl(url, pos + 1, pos);
+	if (str != "")
+		m_domain = str;
+	else
+		throw CUrlParsingError("Invalid type of Domain.");
 
+	str = GetDocumentFromUrl(url, pos);
+	if (str != "")
+		m_document = str;
+	else
+		throw CUrlParsingError("Invalid type of Document.");
 }
 
 
