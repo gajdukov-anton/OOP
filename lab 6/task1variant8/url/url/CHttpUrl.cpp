@@ -14,22 +14,36 @@ CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Proto
 	:m_domain(domain), m_document(document), m_protocol(protocol)
 {
 	if (m_document[0] != '/')
-	{
 		m_document = "/" + m_document;
-	}
 
+	if (!CheckDomain(m_domain))
+		throw CUrlParsingError("Invalid type of Domain.");
+	if (!CheckDocument(m_document))
+		throw CUrlParsingError("Invalid type of Document.");
+
+	if (m_protocol == HTTP)
+		m_port = 80;
+	else
+		m_port = 443;
 }
+
 
 CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port)
 	:m_domain(domain), m_document(document), m_protocol(protocol), m_port(port)
 {
 	if (m_document[0] != '/')
-	{
 		m_document = "/" + m_document;
-	}
+
+	if (!CheckDomain(m_domain))
+		throw CUrlParsingError("Invalid type of Domain.");
+	if (!CheckDocument(m_document))
+		throw CUrlParsingError("Invalid type of Document.");
+
+	if (m_protocol == HTTP && m_port != 80)
+		throw CUrlParsingError("Invalid value of port.");
+	if (m_protocol == HTTPS && m_port != 443)
+		throw CUrlParsingError("Invalid value of port.");
 }
-
-
 
 void CHttpUrl::ParseUrl(std::string const& url)
 {

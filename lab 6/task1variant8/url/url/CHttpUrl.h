@@ -26,7 +26,6 @@ private:
 	Protocol m_protocol;
 	unsigned short m_port;
 	//bool CheckDomain(std::string const& domain) const;
-	bool CheckDocument(std::string& document);
 	void ParseUrl(std::string const& url);
 };
 

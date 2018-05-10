@@ -13,47 +13,53 @@ void ToLowerCase(std::string& str)
 
 bool CheckDomain(std::string const& domain)
 {
-	if (domain.find("www.") != 0)
+	if (domain.size() < 7)
 		return false;
-	if (domain.find(".", 4) == std::string::npos)
+	if (domain.find("www.") != 0 || domain[4] == '.')
 		return false;
+	if (domain.find(".", 5) == std::string::npos)
+		return false;
+	return true;
+}
+
+bool CheckDocument(std::string const& document)
+{
+	if (document.size() == 0)
+		return false;
+	if (document[0] == '/' && document.size() == 1)
+		return false;
+	if (document[0] != '/')
+		return false;
+	for (size_t i = 1; i < document.size(); i++)
+	{
+		if (document[i - 1] == '/' && document[i] == '/')
+			return false;
+	}
 	return true;
 }
 
 std::string GetDomainFromUrl(std::string const& url, size_t startDomain, size_t& endOfDomain)
 {
 	std::string domain = "";
-	/*size_t pos = url.find("://");
-	if (pos == std::string::npos)
-		throw CUrlParsingError("Invalid type of url, not enough \"://\" after protocol.");
-	pos += 3;*/
-	if (CheckDomain(url.substr(startDomain, url.size() - startDomain)))
+	size_t i = startDomain;
+	while (url[i] != '/' && i != url.size())
 	{
-		size_t i = startDomain;
-		while (url[i] != '/')
-		{
-			domain += url[i];
-			i++;
-			if (i == url.size())
-				//throw CUrlParsingError("Invalid type of url, not enough document after domain.");
-				return "";
-		}
-		endOfDomain = i;
+		domain += url[i];
+		i++;
 	}
-	else
-		//throw CUrlParsingError("Invalid type of domain.");
+	endOfDomain = i;
+	if (!CheckDomain(domain))
 		return "";
 	return domain;
 }
 
 std::string GetDocumentFromUrl(std::string const& url, size_t startOfDocument)
 {
-	std::string document;
-	if (url.size() == startOfDocument + 1)
-		//throw CUrlParsingError("Invalid type of url, not enough document after domain.");
-		return "";
+	std::string document = "";
 	for (size_t i = startOfDocument; i < url.size(); i++)
 		document += url[i];
+	if (!CheckDocument(document))
+		return "";
 	return document;
 }
 
@@ -63,7 +69,6 @@ std::string GetProtocolFromUrl(std::string const& url, size_t& EndProtocol)
 	ToLowerCase(protocol);
 
 	if (protocol != "http")
-		//throw CUrlParsingError("Invalid type of protocol.");
 		return "";
 	if (url[4] == ':' && url[5] == '/'  && url[6] == '/')
 	{
@@ -76,5 +81,4 @@ std::string GetProtocolFromUrl(std::string const& url, size_t& EndProtocol)
 		return protocol + "s";
 	}
 	return "";
-	//throw CUrlParsingError("Invalid type of protocol.");
 }
