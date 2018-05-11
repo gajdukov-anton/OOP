@@ -11,38 +11,48 @@ CHttpUrl::CHttpUrl(std::string const& url)
 }
 
 CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol)
+try
 	:m_domain(domain), m_document(document), m_protocol(protocol)
 {
 	if (m_document[0] != '/')
 		m_document = "/" + m_document;
 
 	if (!CheckDomain(m_domain))
-		throw CUrlParsingError("Invalid type of Domain.");
+		throw std::invalid_argument("Invalid type of Domain.");
 	if (!CheckDocument(m_document))
-		throw CUrlParsingError("Invalid type of Document.");
+		throw std::invalid_argument("Invalid type of Document.");
 
 	if (m_protocol == HTTP)
 		m_port = 80;
 	else
 		m_port = 443;
 }
+catch (std::invalid_argument error)
+{
+	throw std::invalid_argument(error.what());
+}
 
 
 CHttpUrl::CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port)
+try
 	:m_domain(domain), m_document(document), m_protocol(protocol), m_port(port)
 {
 	if (m_document[0] != '/')
 		m_document = "/" + m_document;
 
 	if (!CheckDomain(m_domain))
-		throw CUrlParsingError("Invalid type of Domain.");
+		throw std::invalid_argument("Invalid type of Domain.");
 	if (!CheckDocument(m_document))
-		throw CUrlParsingError("Invalid type of Document.");
+		throw std::invalid_argument("Invalid type of Document.");
 
 	if (m_protocol == HTTP && m_port != 80)
-		throw CUrlParsingError("Invalid value of port.");
+		throw std::invalid_argument("Invalid value of port.");
 	if (m_protocol == HTTPS && m_port != 443)
-		throw CUrlParsingError("Invalid value of port.");
+		throw std::invalid_argument("Invalid value of port.");
+}
+catch (std::invalid_argument error)
+{
+	throw std::invalid_argument(error.what());
 }
 
 void CHttpUrl::ParseUrl(std::string const& url)

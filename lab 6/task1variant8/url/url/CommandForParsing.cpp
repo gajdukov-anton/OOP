@@ -2,6 +2,18 @@
 #include "CommandForParsing.h"
 #include "CUrlParsingError.h"
 
+void FillInvalidElements(std::set<char>& setForFill)
+{
+	setForFill.insert('\'');
+	setForFill.insert(':');
+	setForFill.insert('*');
+	setForFill.insert('?');
+	setForFill.insert('"');
+	setForFill.insert('<');
+	setForFill.insert('>');
+	setForFill.insert('|');
+}
+
 void ToLowerCase(std::string& str)
 {
 	for (size_t i = 0; i < str.size(); i++)
@@ -24,15 +36,21 @@ bool CheckDomain(std::string const& domain)
 
 bool CheckDocument(std::string const& document)
 {
+	std::set<char> invalidElements;
+	FillInvalidElements(invalidElements);
+
 	if (document.size() == 0)
 		return false;
 	if (document[0] == '/' && document.size() == 1)
 		return false;
 	if (document[0] != '/')
 		return false;
+
 	for (size_t i = 1; i < document.size(); i++)
 	{
 		if (document[i - 1] == '/' && document[i] == '/')
+			return false;
+		if (invalidElements.find(document[i]) != invalidElements.end())
 			return false;
 	}
 	return true;
