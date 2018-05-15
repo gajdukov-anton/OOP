@@ -14,14 +14,14 @@ void FillInvalidElements(std::set<char>& setForFill)
 	setForFill.insert('|');
 }
 
-void ToLowerCase(std::string& str)
+/*void ToLowerCase(std::string& str)
 {
 	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (isupper(str[i]))
 			str[i] = tolower(str[i]);
 	}
-}
+}*/
 
 bool CheckDomain(std::string const& domain)
 {
@@ -84,7 +84,7 @@ std::string GetDocumentFromUrl(std::string const& url, size_t startOfDocument)
 std::string GetProtocolFromUrl(std::string const& url, size_t& EndProtocol)
 {
 	std::string protocol = url.substr(0, 4);
-	ToLowerCase(protocol);
+	//ToLowerCase(protocol);
 
 	if (protocol != "http")
 		return "";

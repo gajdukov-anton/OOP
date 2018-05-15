@@ -150,6 +150,7 @@
     <ClInclude Include="CHttpUrl.h" />
     <ClInclude Include="CommandForParsing.h" />
     <ClInclude Include="CUrlParsingError.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClCompile Include="CHttpUrl.cpp" />
     <ClCompile Include="CommandForParsing.cpp" />
     <ClCompile Include="CUrlParsingError.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
