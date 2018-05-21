@@ -61,10 +61,6 @@ void CHttpUrl::ParseUrl(std::string const& url)
 		throw CUrlParsingError("Invalid url");
 	}
 
-	/*std::cout << result[1] << std::endl;
-	std::cout << result[2] << std::endl;
-	std::cout << result[3] << std::endl;
-	std::cout << result[4] << std::endl;*/
 	CreateProtocol(result[1]);
 	CreateDomain(result[2]);
 	CreatePort(result[3]);
@@ -124,21 +120,32 @@ void CHttpUrl::CreateProtocol(std::string const& protocolStr)
 
 void CHttpUrl::CreatePort(std::string const& portStr)
 {
-	try
+	if (m_protocol == HTTP && portStr == "")
 	{
-		int port = std::stoi(portStr);
-		if (port >= 1 && port <= 1000)
+		m_port = 80;
+	}
+	else if (m_protocol == HTTPS && portStr == "")
+	{
+		m_port = 443;
+	}
+	else
+	{
+		try
 		{
-			m_port = static_cast<unsigned short>(port);
+			int port = std::stoi(portStr);
+			if (port >= 1 && port <= 1000)
+			{
+				m_port = static_cast<unsigned short>(port);
+			}
+			else
+			{
+				throw CUrlParsingError("Invalid value of port.");
+			}
 		}
-		else
+		catch (...)
 		{
 			throw CUrlParsingError("Invalid value of port.");
 		}
-	}
-	catch (...)
-	{
-		throw CUrlParsingError("Invalid value of port.");
 	}
 }
 

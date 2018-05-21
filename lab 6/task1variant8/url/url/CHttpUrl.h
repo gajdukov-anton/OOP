@@ -33,6 +33,5 @@ private:
 	Protocol m_protocol = HTTP;
 	unsigned short m_port = 80;
 	void CreateUrl();
-	//bool CheckDomain(std::string const& domain) const;
 };
 
