@@ -1,4 +1,6 @@
 #pragma once
+
+#include "CMyIterator.h"
 #include <string>
 #include <iostream>
 #include <memory>
@@ -17,40 +19,37 @@ public:
 	CMyArray<T>& operator=(CMyArray && other);
 	void Append(const T& newElement);
 	const T& operator[](const size_t index) const;
+	T& operator[](const size_t index);
 	void GetAll() const;
 	void Resize(const size_t newSize);
 	size_t GetSize() const;
-	void Clear();
-	~CMyArray();
 	size_t GetCapacity()const;
+	void Clear();
+	CMyIterator<T> Begin() const;
+	CMyIterator<T> End() const;
+	~CMyArray();
+
 private:
 
 	static void DeleteItems(T *begin, T *end)
 	{
-		// Разрушаем старые элементы
 		DestroyItems(begin, end);
-		// Освобождаем область памяти для их хранения
 		RawDealloc(begin);
 	}
 
-	// Копирует элементы из текущего вектора в to, возвращает newEnd
 	static void CopyItems(const T *srcBegin, T *srcEnd, T * const dstBegin, T * & dstEnd)
 	{
 		for (dstEnd = dstBegin; srcBegin != srcEnd; ++srcBegin, ++dstEnd)
 		{
-			// Construct "T" at "dstEnd" as a copy of "*begin"
 			new (dstEnd)T(*srcBegin);
 		}
 	}
 
 	static void DestroyItems(T *from, T *to)
 	{
-		// dst - адрес объект, при конструирование которого было выброшено исключение
-		// to - первый скорнструированный объект
 		while (to != from)
 		{
 			--to;
-			// явно вызываем деструктор для шаблонного типа T
 			to->~T();
 		}
 	}
@@ -105,67 +104,6 @@ CMyArray<T>::CMyArray(CMyArray&& arr)
 	arr.Clear();
 }
 
-
-template <typename T>
-void CMyArray<T>::Append(const T & value)
-{
-	if (m_end == m_endOfCapacity) // no free space
-	{
-		size_t newCapacity = std::max(size_t(1), GetCapacity() * 2);
-
-		auto newBegin = RawAlloc(newCapacity);
-		T *newEnd = newBegin;
-		try
-		{
-			CopyItems(m_begin, m_end, newBegin, newEnd);
-			// Конструируем копию value по адресу newItemLocation
-			new (newEnd)T(value);
-			++newEnd;
-		}
-		catch (...)
-		{
-			DeleteItems(newBegin, newEnd);
-			throw;
-		}
-		DeleteItems(m_begin, m_end);
-
-		// Переключаемся на использование нового хранилища элементов
-		m_begin = newBegin;
-		m_end = newEnd;
-		m_endOfCapacity = m_begin + newCapacity;
-	}
-	else // has free space
-	{
-		new (m_end) T(value);
-		++m_end;
-	}
-	m_length = static_cast<size_t>(m_end - m_begin);
-}
-
-template <typename T>
-void CMyArray<T>::GetAll() const
-{
-	for (size_t i = 0; i <  m_length; i++)
-		std::cout << i << ": " << *(m_begin + i) << ' ';
-}
-
-template <typename T>
-size_t CMyArray<T>::GetSize() const
-{
-	return m_length;
-}
-
-template <typename T>
-const T& CMyArray<T>::operator[](const size_t index) const
-{
-	if (m_begin + index >= m_end)
-	{
-		throw std::out_of_range("index is out of range");
-	}
-
-	return *(m_begin + index);
-}
-
 template <typename T>
 CMyArray<T>& CMyArray<T>::operator=(const CMyArray& other)
 {
@@ -198,9 +136,64 @@ CMyArray<T>& CMyArray<T>::operator =(CMyArray && other)
 }
 
 template <typename T>
-size_t CMyArray<T>::GetCapacity() const
+void CMyArray<T>::Append(const T & value)
 {
-	return m_endOfCapacity - m_begin;
+	if (m_end == m_endOfCapacity) 
+	{
+		size_t newCapacity = std::max(size_t(1), GetCapacity() * 2);
+
+		auto newBegin = RawAlloc(newCapacity);
+		T *newEnd = newBegin;
+		try
+		{
+			CopyItems(m_begin, m_end, newBegin, newEnd);
+			new (newEnd)T(value);
+			++newEnd;
+		}
+		catch (...)
+		{
+			DeleteItems(newBegin, newEnd);
+			throw;
+		}
+		DeleteItems(m_begin, m_end);
+
+		m_begin = newBegin;
+		m_end = newEnd;
+		m_endOfCapacity = m_begin + newCapacity;
+	}
+	else
+	{
+		new (m_end) T(value);
+		++m_end;
+	}
+	m_length = static_cast<size_t>(m_end - m_begin);
+}
+
+template <typename T>
+const T& CMyArray<T>::operator[](const size_t index) const
+{
+	if (m_begin + index >= m_end)
+	{
+		throw std::out_of_range("index is out of range");
+	}
+
+	return *(m_begin + index);
+}
+
+template <typename T>
+T& CMyArray<T>::operator[](const size_t index)
+{
+	if (index < m_length && m_length > 0)
+		return  *(m_begin + index);
+	else
+		throw std::out_of_range("the index should be in the range from 0 to the length of the string");
+}
+
+template <typename T>
+void CMyArray<T>::GetAll() const
+{
+	for (size_t i = 0; i <  m_length; i++)
+		std::cout << i << ": " << *(m_begin + i) << ' ';
 }
 
 template <typename T>
@@ -242,6 +235,18 @@ void CMyArray<T>::Resize(const size_t newSize)
 }
 
 template <typename T>
+size_t CMyArray<T>::GetSize() const
+{
+	return m_length;
+}
+
+template <typename T>
+size_t CMyArray<T>::GetCapacity() const
+{
+	return m_endOfCapacity - m_begin;
+}
+
+template <typename T>
 void CMyArray<T>::Clear()
 {
 	if (GetSize() != 0)
@@ -252,6 +257,18 @@ void CMyArray<T>::Clear()
 		m_endOfCapacity = nullptr;
 		m_length = static_cast<size_t>(m_end - m_begin);
 	}
+}
+
+template <typename T>
+CMyIterator<T> CMyArray<T>::Begin() const
+{
+	return CMyIterator<T>(m_begin);
+}
+
+template <typename T>
+CMyIterator<T> CMyArray<T>::End() const
+{
+	return CMyIterator<T>(m_end - 1);
 }
 
 template <typename T>
