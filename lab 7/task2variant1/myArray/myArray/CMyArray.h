@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CMyIterator.h"
+#include "CMyRevIterator.h"
 #include <string>
 #include <iostream>
 #include <memory>
@@ -13,6 +14,7 @@ class CMyArray
 public:
 
 	CMyArray() = default;
+	CMyArray(std::initializer_list<T> arr);
 	CMyArray(const CMyArray& arr);
 	CMyArray(CMyArray&& arr);
 	CMyArray<T>& operator=(const CMyArray& other);
@@ -27,9 +29,21 @@ public:
 	void Clear();
 	CMyIterator<T> Begin() const;
 	CMyIterator<T> End() const;
+	CMyRevIterator<T> RBegin() const;
+	CMyRevIterator<T> REnd() const;
 	~CMyArray();
 
 private:
+
+	void Copy(std::initializer_list<T> from, T* const begin, size_t size, T* & end)
+	{
+		end = begin;
+		for (auto elem : from)
+		{
+			new (end)T(elem);
+			++end;
+		}
+	}
 
 	static void DeleteItems(T *begin, T *end)
 	{
@@ -105,6 +119,16 @@ CMyArray<T>::CMyArray(CMyArray&& arr)
 }
 
 template <typename T>
+CMyArray<T>::CMyArray(std::initializer_list<T> arr)
+	:m_length(arr.size())
+{
+	m_begin = RawAlloc(m_length);
+	Copy(arr, m_begin, m_length, m_end);
+	m_endOfCapacity = m_end;
+	m_length = static_cast<size_t>(m_end - m_begin);
+}
+
+template <typename T>
 CMyArray<T>& CMyArray<T>::operator=(const CMyArray& other)
 {
 	if (std::addressof(other) != this)
@@ -127,9 +151,13 @@ CMyArray<T>& CMyArray<T>::operator =(CMyArray && other)
 		m_begin = nullptr;
 		m_end = nullptr;
 		m_endOfCapacity = nullptr;
+		m_length = 0;
 		std::swap(m_begin, other.m_begin);
 		std::swap(m_end, other.m_end);
 		std::swap(m_endOfCapacity, other.m_endOfCapacity);
+		std::swap(m_length, other.m_length);
+		//*this = other;
+		//other.Clear();
 	}
 	m_length = static_cast<size_t>(m_end - m_begin);
 	return *this;
@@ -186,7 +214,7 @@ T& CMyArray<T>::operator[](const size_t index)
 	if (index < m_length && m_length > 0)
 		return  *(m_begin + index);
 	else
-		throw std::out_of_range("the index should be in the range from 0 to the length of the string");
+		throw std::out_of_range("index is out of range");
 }
 
 template <typename T>
@@ -269,6 +297,18 @@ template <typename T>
 CMyIterator<T> CMyArray<T>::End() const
 {
 	return CMyIterator<T>(m_end - 1);
+}
+
+template <typename T>
+CMyRevIterator<T> CMyArray<T>::RBegin() const
+{
+	return CMyRevIterator<T>(m_begin);
+}
+
+template <typename T>
+CMyRevIterator<T> CMyArray<T>::REnd() const
+{
+	return CMyRevIterator<T>(m_end - 1);
 }
 
 template <typename T>

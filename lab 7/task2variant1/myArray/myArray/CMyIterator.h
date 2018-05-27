@@ -1,11 +1,10 @@
 #pragma once
 
-
 template <typename Type>
 class CMyIterator
 {
 public:
-
+	
 	CMyIterator();
 	CMyIterator(Type* iterator);
 	CMyIterator<Type>& operator=(const CMyIterator& other);
@@ -13,8 +12,6 @@ public:
 	CMyIterator<Type>& operator--();
 	bool operator==(const CMyIterator& other) const;
 	bool operator!=(const CMyIterator& other) const;
-	CMyIterator<Type>& operator+=(const int& offset);
-	CMyIterator<Type>& operator-=(const int& offset);
 	Type GetValue() const;
 	~CMyIterator();
 
@@ -46,20 +43,14 @@ CMyIterator<Type>& CMyIterator<Type>::operator=(const CMyIterator& other)
 template<typename Type>
 CMyIterator<Type>& CMyIterator<Type>::operator++()
 {
-	if (++*m_iterator)
-	{
-		//++m_iterator;
-	}
+	++m_iterator;
 	return *this;
 }
 
 template<typename Type>
 CMyIterator<Type>& CMyIterator<Type>::operator--()
 {
-	if (--*m_iterator)
-	{
-		//--m_iterator;
-	}
+	--m_iterator;
 	return *this;
 }
 
@@ -75,20 +66,6 @@ bool CMyIterator<Type>::operator!=(const CMyIterator& other) const
 	return (m_iterator != other.m_iterator);
 }
 
-template<typename Type>
-CMyIterator<Type>& CMyIterator<Type>::operator+=(const int& offset)
-{
-	m_iterator += offset;
-	return *this;
-}
-
-template<typename Type>
-CMyIterator<Type>& CMyIterator<Type>::operator-=(const int& offset)
-{
-	m_iterator -= offset;
-	return *this;
-}
-
 template <typename Type>
 Type  CMyIterator<Type>::GetValue() const
 {
@@ -99,3 +76,4 @@ template <typename Type>
 CMyIterator<Type>::~CMyIterator()
 {
 }
+

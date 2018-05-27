@@ -149,12 +149,14 @@
   <ItemGroup>
     <ClInclude Include="CMyArray.h" />
     <ClInclude Include="CMyIterator.h" />
+    <ClInclude Include="CMyRevIterator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMyArray.cpp" />
     <ClCompile Include="CMyIterator.cpp" />
+    <ClCompile Include="CMyRevIterator.cpp" />
     <ClCompile Include="myArray.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
