@@ -8,6 +8,8 @@ public:
 	CMyRevIterator(Type* iterator);
 	CMyRevIterator<Type>& operator=(const CMyRevIterator& other);
 	CMyRevIterator<Type>& operator++();
+	const CMyRevIterator<Type> operator++(int);
+	const CMyRevIterator<Type> operator--(int);
 	CMyRevIterator<Type>& operator--();
 	bool operator==(const CMyRevIterator& other) const;
 	bool operator!=(const CMyRevIterator& other) const;
@@ -45,6 +47,23 @@ CMyRevIterator<Type>& CMyRevIterator<Type>::operator++()
 	--m_iterator;
 	return *this;
 }
+
+template<typename Type>
+const CMyRevIterator<Type> CMyRevIterator<Type>::operator++(int)
+{
+	auto tempIterator(*this);
+	++*this;
+	return tempIterator;
+}
+
+template<typename Type>
+const CMyRevIterator<Type> CMyRevIterator<Type>::operator--(int)
+{
+	auto tempIterator(*this);
+	--*this;
+	return tempIterator;
+}
+
 
 template<typename Type>
 CMyRevIterator<Type>& CMyRevIterator<Type>::operator--()

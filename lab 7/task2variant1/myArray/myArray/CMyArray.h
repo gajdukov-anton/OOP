@@ -156,8 +156,6 @@ CMyArray<T>& CMyArray<T>::operator =(CMyArray && other)
 		std::swap(m_end, other.m_end);
 		std::swap(m_endOfCapacity, other.m_endOfCapacity);
 		std::swap(m_length, other.m_length);
-		//*this = other;
-		//other.Clear();
 	}
 	m_length = static_cast<size_t>(m_end - m_begin);
 	return *this;

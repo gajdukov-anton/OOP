@@ -9,7 +9,10 @@ public:
 	CMyIterator(Type* iterator);
 	CMyIterator<Type>& operator=(const CMyIterator& other);
 	CMyIterator<Type>& operator++();
+	const CMyIterator<Type> operator++(int);
 	CMyIterator<Type>& operator--();
+	const CMyIterator<Type> operator--(int);
+
 	bool operator==(const CMyIterator& other) const;
 	bool operator!=(const CMyIterator& other) const;
 	Type GetValue() const;
@@ -48,10 +51,26 @@ CMyIterator<Type>& CMyIterator<Type>::operator++()
 }
 
 template<typename Type>
+const CMyIterator<Type> CMyIterator<Type>::operator++(int)
+{
+	auto tempIterator(*this);
+	++*this;
+	return tempIterator;
+}
+
+template<typename Type>
 CMyIterator<Type>& CMyIterator<Type>::operator--()
 {
 	--m_iterator;
 	return *this;
+}
+
+template<typename Type>
+const CMyIterator<Type> CMyIterator<Type>::operator--(int)
+{
+	auto tempIterator(*this);
+	--*this;
+	return tempIterator;
 }
 
 template<typename Type>
