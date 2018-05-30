@@ -300,13 +300,13 @@ CMyIterator<T> CMyArray<T>::End() const
 template <typename T>
 CMyRevIterator<T> CMyArray<T>::RBegin() const
 {
-	return CMyRevIterator<T>(m_begin);
+	return CMyRevIterator<T>(m_end - 1);
 }
 
 template <typename T>
 CMyRevIterator<T> CMyArray<T>::REnd() const
 {
-	return CMyRevIterator<T>(m_end - 1);
+	return CMyRevIterator<T>(m_begin);
 }
 
 template <typename T>
